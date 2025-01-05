@@ -9,9 +9,9 @@ if (isset($_POST['submit'])) {
 
     $insertQuery = "INSERT INTO Users (name, username, email) VALUES (?, ?, ?)";
     $params = array($name, $username, $email);
-    $stmt = sqlsrv_query($conn, $insertQuery, $params);
+    $sql = sqlsrv_query($conn, $insertQuery, $params);
 
-    if ($stmt) {
+    if ($sql) {
         header("Location: user_crud.php?msg=inserted");
     } else {
         die(print_r(sqlsrv_errors(), true));
@@ -22,8 +22,8 @@ if (isset($_POST['submit'])) {
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $editQuery = "SELECT * FROM Users WHERE id = ?";
-    $stmt = sqlsrv_query($conn, $editQuery, array($id));
-    $user = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    $sql = sqlsrv_query($conn, $editQuery, array($id));
+    $user = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC);
 }
 
 // Update User
@@ -35,9 +35,9 @@ if (isset($_POST['update'])) {
 
     $updateQuery = "UPDATE Users SET name = ?, username = ?, email = ? WHERE id = ?";
     $params = array($name, $username, $email, $id);
-    $stmt = sqlsrv_query($conn, $updateQuery, $params);
+    $sql = sqlsrv_query($conn, $updateQuery, $params);
 
-    if ($stmt) {
+    if ($sql) {
         header("Location: user_crud.php?msg=updated");
     } else {
         die(print_r(sqlsrv_errors(), true));
@@ -48,9 +48,9 @@ if (isset($_POST['update'])) {
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     $deleteQuery = "DELETE FROM Users WHERE id = ?";
-    $stmt = sqlsrv_query($conn, $deleteQuery, array($id));
+    $sql = sqlsrv_query($conn, $deleteQuery, array($id));
 
-    if ($stmt) {
+    if ($sql) {
         header("Location: user_crud.php?msg=deleted");
     } else {
         die(print_r(sqlsrv_errors(), true));
